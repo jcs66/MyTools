@@ -4,83 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的个人资源库 🧰</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         "PingFang SC", "Hiragino Sans GB",
+                         "Microsoft YaHei", sans-serif;
+            background-color: #f6f7f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        .category {
+            margin-top: 48px;
+        }
+
+        .category h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            border-left: 4px solid #4f46e5;
+            padding-left: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        。card {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 24px 0;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #4f46e5;
+        }
+    </style>
 </head>
+
 <body>
 
-    <header>
-        <div class="container">
-            <h1>👋 欢迎来到我的资源小站</h1>
-            <p>这里收集了我亲测好用的软件和教程，持续更新中...</p>
+<header>
+    <div class="container">
+        <h1>👋 我的个人资源库</h1>
+        <p>一些我长期在用、并且真的有用的工具和资源。</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- 实用工具 -->
+    <section class="category">
+        <h2>💻 实用工具</h2>
+        <div class="grid">
+
+            <a href="https://www.snipaste.com/" target="_blank" class="card">
+                <h3>📸 Snipaste</h3>
+                <p>截图 + 贴图，日常办公离不开。</p>
+            </a>
+
+            <a href="https://www.canva.com/" target="_blank" class="card">
+                <h3>🎨 Canva</h3>
+                <p>做海报、PPT、封面图，效率工具。</p>
+            </a>
+
         </div>
-    </header>
+    </section>
 
-    <main class="container">
-        
-        <section class="category">
-            <h2>💻 实用工具</h2>
-            <div class="grid">
-                <a href="https://你的链接" target="_blank" class="card">
-                    <h3>🚀 科学上网工具</h3>
-                    <p>懂得都懂，简单好用的网络加速器。</p>
-                </a>
-                <a href="https://你的链接" target="_blank" class="card">
-                    <h3>📸 截图神器 Snipaste</h3>
-                    <p>最好用的截图贴图软件，办公必备！</p>
-                </a>
-            </div>
-        </section>
+    <!-- 动漫 -->
+    <section class="category">
+        <h2>🎬 动漫资源</h2>
+        <div class="grid">
 
-        <section class="category">
-              <h2>🎬 动漫资源</h2>
-              <div class="grid">
-            
-                <a href="https://www.anfuns.cc/" target="_blank" class="card">
-                  <h3>AnFuns</h3>
-                  <p>更新稳定的在线动漫站，界面干净。</p>
-                </a>
-            
-                <a href="https://www.nyadm.link/" target="_blank" class="card">
-                  <h3>NyaFun</h3>
-                  <p>新番更新快，适合作为主力站。</p>
-                </a>
-            
-                <a href="https://www.yinghua2.com/" target="_blank" class="card">
-                  <h3>樱花动漫</h3>
-                  <p>老牌资源站，备用首选。</p>
-                </a>
-            
-                <a href="https://air.tls.moe/#/home" target="_blank" class="card">
-                  <h3>airAnime</h3>
-                  <p>界面现代，体验不错。</p>
-                </a>
-              </div>
-        </section>
+            <a href="https://www.anfuns.cc/" target="_blank" class="card">
+                <h3>AnFuns</h3>
+                <p>更新稳定，界面清爽。</p>
+            </a>
 
+            <a href="https://www.nyadm.link/" target="_blank" class="card">
+                <h3>NyaFun</h3>
+                <p>新番更新快，主力站。</p>
+            </a>
 
-        <section class="category">
-            <h2>📚 独家教程</h2>
-            <div class="grid">
-                <a href="https://你的链接" target="_blank" class="card">
-                    <h3>💡 电话卡省钱攻略</h3>
-                    <p>教你如何选择最划算的流量卡！</p>
-                </a>
-                <a href="https://你的链接" target="_blank" class="card">
-                    <h3>🎬 视频剪辑入门</h3>
-                    <p>从零开始学剪辑，小白变大神。</p>
-                </a>
-            </div>
-        </section>
+            <a href="https://www.yinghua2.com/" target="_blank" class="card">
+                <h3>樱花动漫</h3>
+                <p>老牌资源站，备用首选。</p>
+            </a>
 
-    </main>
+            <a href="https://air.tls.moe/#/home" target="_blank" class="card">
+                <h3>airAnime</h3>
+                <p>界面现代，体验不错。</p>
+            </a>
 
-    <footer>
-        <p>Made with ❤️ by <a href="https://github.com/jcs66/MyTools" target="_blank">Replicating jcs66</a></p>
-    </footer>
+        </div>
+    </section>
+
+    <!-- 影视 -->
+    <section class="category">
+        <h2>🎥 影视资源</h2>
+        <div class="grid">
+
+            <a href="https://www.dy2018.com/" target="_blank" class="card">
+                <h3>电影天堂</h3>
+                <p>老牌影视下载站。</p>
+            </a>
+
+            <a href="https://www.1lou.me/" target="_blank" class="card">
+                <h3>BT之家 1LOU</h3>
+                <p>适合找冷门影视资源。</p>
+            </a>
+
+            <a href="https://a.ysscj.site/" target="_blank" class="card">
+                <h3>影视收藏夹</h3>
+                <p>影视资源聚合站。</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- 官方平台 -->
+    <section class="category">
+        <h2>📺 官方平台</h2>
+        <div class="grid">
+
+            <a href="https://www.bilibili.com/" target="_blank" class="card">
+                <h3>Bilibili</h3>
+                <p>视频与创作社区。</p>
+            </a>
+
+            <a href="https://v.qq.com/" target="_blank" class="card">
+                <h3>腾讯视频</h3>
+                <p>正版影视平台。</p>
+            </a>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>
+        Made with ❤️ by 
+        <a href="https://github.com/jcs66/MyTools" target="_blank">
+            jcs66
+        </a>
+    </p>
+</footer>
 
 </body>
 </html>
-
-
-
-
