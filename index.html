@@ -1,213 +1,99 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人资源库 🧰</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                         "PingFang SC", "Hiragino Sans GB",
-                         "Microsoft YaHei", sans-serif;
-            background-color: #f6f7f9;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #eaeaea;
-        }
-
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: #666;
-        }
-
-        .category {
-            margin-top: 48px;
-        }
-
-        .category h2 {
-            font-size: 22px;
-            margin-bottom: 16px;
-            border-left: 4px solid #4f46e5;
-            padding-left: 12px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        。card {
-            background: #ffffff;
-            padding: 18px;
-            border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-        }
-
-        .card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        footer {
-            margin-top: 80px;
-            padding: 24px 0;
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #4f46e5;
-        }
-    </style>
+    <title>我的导航台</title>
+    <meta name="description" content="从 Chrome 收藏夹整理而来的个人导航页，支持搜索、分类浏览、固定常用和自动推荐。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Personal Launchpad</p>
+                <h1>我的导航台</h1>
+                <p class="hero-text">
+                    这不是普通书签页，而是一个更好找、更好看、以后也更容易维护的个人起始页。
+                </p>
+            </div>
+            <div class="hero-stats" id="statsPanel" aria-live="polite">
+                <div class="stat-card">
+                    <span class="stat-label">总链接</span>
+                    <strong id="linkCount">--</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">主分类</span>
+                    <strong id="categoryCount">--</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">已固定</span>
+                    <strong id="commonCount">--</strong>
+                </div>
+            </div>
+        </header>
 
-<header>
-    <div class="container">
-        <h1>👋 我的个人资源库</h1>
-        <p>一些我长期在用、并且真的有用的工具和资源。</p>
+        <section class="toolbar">
+            <label class="search-panel" for="searchInput">
+                <span class="search-label">搜索收藏</span>
+                <input id="searchInput" type="search" placeholder="搜索标题、网址或分类">
+            </label>
+            <div class="filter-strip" id="filterStrip" aria-label="分类筛选"></div>
+        </section>
+
+        <main class="layout">
+            <aside class="side-panel">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <p class="panel-kicker">Quick Start</p>
+                            <h2>常用入口</h2>
+                        </div>
+                    </div>
+                    <p class="panel-note">你可以手动固定常用链接。没固定的位置，会按你的点击习惯自动推荐。</p>
+                    <div class="common-actions">
+                        <button class="ghost-button" id="clearPinsButton" type="button">清空固定</button>
+                        <button class="ghost-button" id="clearUsageButton" type="button">重置推荐</button>
+                    </div>
+                    <div class="common-grid" id="commonGrid"></div>
+                </section>
+
+                <section class="panel tip-panel">
+                    <p class="panel-kicker">Tips</p>
+                    <h2>使用方式</h2>
+                    <ul class="tips-list">
+                        <li>用上面的搜索框，能同时搜标题、网址和分类。</li>
+                        <li>点分类标签可以快速只看某一类内容。</li>
+                        <li>点每张卡片右上角的“固定”，就能把它放进常用入口。</li>
+                        <li>大分类默认折叠一部分，按需展开就不会太乱。</li>
+                    </ul>
+                </section>
+            </aside>
+
+            <section class="content-panel">
+                <div class="result-banner hidden" id="resultBanner" aria-live="polite"></div>
+                <section class="search-results hidden" id="searchResults"></section>
+                <section class="category-stack" id="categoryStack"></section>
+                <div class="state-panel" id="emptyState">
+                    <p class="state-kicker">Nothing yet</p>
+                    <h2>正在载入你的导航数据</h2>
+                    <p>如果这里一直不显示内容，说明页面还没成功读取 <code>bookmarks_data.json</code>。</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>Powered by GitHub + Vercel + 你自己的收藏夹。</p>
+            <a href="https://github.com/jcs66/MyTools" target="_blank" rel="noreferrer">查看仓库</a>
+        </footer>
     </div>
-</header>
 
-<main class="container">
-
-    <!-- 实用工具 -->
-    <section class="category">
-        <h2>💻 实用工具</h2>
-        <div class="grid">
-
-            <a href="https://www.snipaste.com/" target="_blank" class="card">
-                <h3>📸 Snipaste</h3>
-                <p>截图 + 贴图，日常办公离不开。</p>
-            </a>
-
-            <a href="https://www.canva.com/" target="_blank" class="card">
-                <h3>🎨 Canva</h3>
-                <p>做海报、PPT、封面图，效率工具。</p>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- 动漫 -->
-    <section class="category">
-        <h2>🎬 动漫资源</h2>
-        <div class="grid">
-
-            <a href="https://www.anfuns.cc/" target="_blank" class="card">
-                <h3>AnFuns</h3>
-                <p>更新稳定，界面清爽。</p>
-            </a>
-
-            <a href="https://www.nyadm.link/" target="_blank" class="card">
-                <h3>NyaFun</h3>
-                <p>新番更新快，主力站。</p>
-            </a>
-
-            <a href="https://www.yinghua2.com/" target="_blank" class="card">
-                <h3>樱花动漫</h3>
-                <p>老牌资源站，备用首选。</p>
-            </a>
-
-            <a href="https://air.tls.moe/#/home" target="_blank" class="card">
-                <h3>airAnime</h3>
-                <p>界面现代，体验不错。</p>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- 影视 -->
-    <section class="category">
-        <h2>🎥 影视资源</h2>
-        <div class="grid">
-
-            <a href="https://www.dy2018.com/" target="_blank" class="card">
-                <h3>电影天堂</h3>
-                <p>老牌影视下载站。</p>
-            </a>
-
-            <a href="https://www.1lou.me/" target="_blank" class="card">
-                <h3>BT之家 1LOU</h3>
-                <p>适合找冷门影视资源。</p>
-            </a>
-
-            <a href="https://a.ysscj.site/" target="_blank" class="card">
-                <h3>影视收藏夹</h3>
-                <p>影视资源聚合站。</p>
-            </a>
-
-        </div>
-    </section>
-
-    <!-- 官方平台 -->
-    <section class="category">
-        <h2>📺 官方平台</h2>
-        <div class="grid">
-
-            <a href="https://www.bilibili.com/" target="_blank" class="card">
-                <h3>Bilibili</h3>
-                <p>视频与创作社区。</p>
-            </a>
-
-            <a href="https://v.qq.com/" target="_blank" class="card">
-                <h3>腾讯视频</h3>
-                <p>正版影视平台。</p>
-            </a>
-
-        </div>
-    </section>
-
-</main>
-
-<footer>
-    <p>
-        Made with ❤️ by 
-        <a href="https://github.com/jcs66/MyTools" target="_blank">
-            jcs66
-        </a>
-    </p>
-</footer>
-
+    <noscript>
+        <div class="noscript-banner">这个页面需要开启 JavaScript 才能读取你的收藏夹数据。</div>
+    </noscript>
+    <script src="./app.js" defer></script>
 </body>
 </html>
